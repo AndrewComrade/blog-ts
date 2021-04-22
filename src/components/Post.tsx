@@ -6,7 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
-import {RouteNames} from "~/routes";
+import { RouteNames } from '~/routes';
+import { ArrowForward } from '@material-ui/icons';
 
 interface PostProps extends IPost {}
 
@@ -20,12 +21,12 @@ const Post: React.FC<PostProps> = ({ id, title, body }) => {
         setOpen(!open);
     };
 
-    const onPostClick = () => {
-        history.push(RouteNames.POST_ROUTE + '/' + id)
+    const onMoreClick = () => {
+        history.push(RouteNames.POST_ROUTE + '/' + id);
     };
 
     return (
-        <Grid item xs={7} onClick={onPostClick}>
+        <Grid item xs={7}>
             <Card>
                 <CardContent>
                     <Grid container>
@@ -54,6 +55,9 @@ const Post: React.FC<PostProps> = ({ id, title, body }) => {
                                 ) : (
                                     <AddCircleIcon />
                                 )}
+                            </Button>
+                            <Button onClick={onMoreClick}>
+                                <ArrowForward />
                             </Button>
                         </Grid>
                     </Grid>

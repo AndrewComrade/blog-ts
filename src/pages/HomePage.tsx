@@ -1,38 +1,57 @@
-import React, { useEffect } from 'react';
-import { Container, makeStyles } from '@material-ui/core';
-import { useActions } from '~/hooks/useActions';
+import React from 'react';
+import {
+    CircularProgress,
+    Container,
+    Grid,
+    makeStyles,
+} from '@material-ui/core';
 import { useTypedSelector } from '~/hooks/useTypedSelector';
-import PostsList from '~/components/PostsList';
+import { useActions } from '~/hooks/useActions';
 import Typography from '@material-ui/core/Typography';
+import UsersList from '~/components/UsersList';
 
 const HomePage: React.FC = () => {
     const classes = useStyles();
-
-    const { fetchPosts } = useActions();
-    const { loading, error } = useTypedSelector(
-        (state) => state.posts
+    const { setUsersPage } = useActions();
+    const { users, usersPage, loading, error } = useTypedSelector(
+        (state) => state.users
     );
 
-    useEffect(() => {
-        fetchPosts();
-    }, []);
-
-
+    const onPageChange = (e: React.ChangeEvent<unknown>, value: number) => {
+        setUsersPage(value);
+    };
 
     if (loading) {
-        return <p>Loading...</p>;
+        return (
+            <Grid container justify="center">
+                <CircularProgress />
+            </Grid>
+        );
     }
 
     if (error) {
-        return <p>{error}</p>;
+        return (
+            <Grid container justify="center">
+                <Typography>{error}</Typography>
+            </Grid>
+        );
     }
 
     return (
         <Container>
-            <Typography className={classes.title} component="h2" align="center">
-                Posts
+            <Typography
+                className={classes.title}
+                color="primary"
+                component="h2"
+                align="center"
+            >
+                Users
             </Typography>
-            <PostsList />
+            <UsersList
+                users={users}
+                currentPage={usersPage}
+                onPageChange={onPageChange}
+            />
         </Container>
     );
 };
@@ -40,6 +59,7 @@ const HomePage: React.FC = () => {
 const useStyles = makeStyles({
     title: {
         marginTop: 50,
+        fontWeight: 'bold',
     },
 });
 

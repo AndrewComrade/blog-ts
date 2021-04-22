@@ -10,39 +10,39 @@ export interface PostsState {
     post: IPost | null;
     loading: boolean;
     error: string;
-    currentPage: number;
-    pageLimit: number;
+    postsPage: number;
+    postsLimit: number;
 }
 
-export enum postsActionTypes {
+export enum PostsActionTypes {
     FETCH_POSTS = 'blog/fetchPosts',
     FETCH_POSTS_SUCCESS = 'blog/fetchPostsSuccess',
     FETCH_POST_SUCCESS = 'blog/fetchPostSuccess',
     FETCH_POSTS_ERROR = 'blog/fetchPostsError',
-    SET_CURRENT_PAGE = 'blog/setCurrentPage',
+    SET_POSTS_PAGE = 'blog/setPostsPage',
 }
 
 type fetchPosts = {
-    type: postsActionTypes.FETCH_POSTS;
+    type: PostsActionTypes.FETCH_POSTS;
 };
 
 type fetchPostsSuccess = {
-    type: postsActionTypes.FETCH_POSTS_SUCCESS;
+    type: PostsActionTypes.FETCH_POSTS_SUCCESS;
     payload: IPost[];
 };
 
 type fetchPostSuccess = {
-    type: postsActionTypes.FETCH_POST_SUCCESS;
+    type: PostsActionTypes.FETCH_POST_SUCCESS;
     payload: IPost;
 };
 
 type fetchPostsError = {
-    type: postsActionTypes.FETCH_POSTS_ERROR;
+    type: PostsActionTypes.FETCH_POSTS_ERROR;
     payload: string;
 };
 
-type setCurrentPage = {
-    type: postsActionTypes.SET_CURRENT_PAGE;
+type setPostsPage = {
+    type: PostsActionTypes.SET_POSTS_PAGE;
     payload: number;
 };
 
@@ -51,4 +51,4 @@ export type PostsActions =
     | fetchPostsSuccess
     | fetchPostSuccess
     | fetchPostsError
-    | setCurrentPage;
+    | setPostsPage;
