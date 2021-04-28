@@ -28,6 +28,22 @@ export const fetchPost = (id: string) => {
     };
 };
 
+export const createPost = (title: string, descr: string, userId: number) => {
+    return async () => {
+        try {
+            const url = 'https://jsonplaceholder.typicode.com/posts';
+            const response = await axios.post(url, {
+                title,
+                descr,
+                userId,
+            });
+            console.log(response.data);
+        } catch (e) {
+            console.log(e.message);
+        }
+    };
+};
+
 export const setPostsPage = (payload: number): PostsActions => {
     return { type: PostsActionTypes.SET_POSTS_PAGE, payload };
 };

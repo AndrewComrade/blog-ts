@@ -18,7 +18,7 @@ interface ParamTypes {
 }
 
 const UserPage: FC = () => {
-    const { fetchUser, fetchPosts } = useActions();
+    const { fetchUser, fetchPosts, createPost } = useActions();
     const { user } = useTypedSelector((state) => state.users);
     const { posts } = useTypedSelector((state) => state.posts);
     const { id } = useParams<ParamTypes>();
@@ -34,6 +34,11 @@ const UserPage: FC = () => {
     };
 
     const handleClose = () => {
+        setOpen(false);
+    };
+
+    const onSubmit = (title: string, descr: string) => {
+        createPost(title, descr, parseInt(id));
         setOpen(false);
     };
 
@@ -78,7 +83,11 @@ const UserPage: FC = () => {
                     <PostsList posts={posts} />
                 </Grid>
             </Grid>
-            <CreatePostModal isOpen={open} handleClose={handleClose} />
+            <CreatePostModal
+                isOpen={open}
+                handleClose={handleClose}
+                onSubmit={onSubmit}
+            />
         </Container>
     );
 };

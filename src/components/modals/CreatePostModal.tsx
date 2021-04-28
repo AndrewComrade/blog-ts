@@ -1,17 +1,43 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import Modal from 'react-modal';
-import { Button } from '@material-ui/core';
+import { Button, TextareaAutosize, TextField } from '@material-ui/core';
 
 interface CreatePostModalProps {
     isOpen: boolean;
     handleClose: () => void;
+    onSubmit: (title: string, descr: string) => void;
 }
 
-const CreatePostModal: FC<CreatePostModalProps> = ({ isOpen, handleClose }) => {
+const CreatePostModal: FC<CreatePostModalProps> = ({
+    isOpen,
+    handleClose,
+    onSubmit,
+}) => {
+    const [title, setTitle] = useState<string>('');
+    const [descr, setDescr] = useState<string>('');
+
     return (
         <Modal isOpen={isOpen}>
             <Button onClick={handleClose}>Close</Button>
-            <form></form>
+            <form>
+                <TextField
+                    variant="outlined"
+                    label="Post title"
+                    value={title}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setTitle(e.target.value)
+                    }
+                />
+                <TextareaAutosize
+                    onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                        setDescr(e.target.value)
+                    }
+                    value={descr}
+                />
+                <Button onClick={() => onSubmit(title, descr)}>
+                    Create Post
+                </Button>
+            </form>
         </Modal>
     );
 };
